@@ -1,0 +1,14 @@
+Проблемы бд
+некоторые значения могут повторяться - как хранить в базе
+
++1 Mastery: Pestilence Talent
++2 Mastery: Blood Fire Talent
+
+в поиске: 
+
+Mastery = (Pestilence Talent, Blood Fire Talent) 
+and 
+Mastery > 1
+
+Вариант первый - завести много колонок - Mastery1 .. Mastery10
+и при поиске на них все натравливать

@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "grind-bot"
+version = "0.1.0"
+description = ""
+authors = ["Shuraken007 <alexander.mad93@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pymysql = "^1.1.1"
+prettytable = "^3.10.2"
+alembic = "^1.13.2"
+pytest = "^8.3.2"
+psycopg2-binary = "^2.9.9"
+discord-py = "^2.4.0"
+python-dotenv = "^1.0.1"
+sqlalchemy = "^2.0.32"
+sqlalchemy-utils = "^0.41.2"
+regex = "^2024.7.24"
+
+
+objgraph = "^3.6.1"
+pillow = "^10.4.0"
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "grind_bot.scripts.start:main"
+drop = "grind_bot.scripts.db_drop:main"
+save = "grind_bot.scripts.load_db_from:main"
+load = "grind_bot.scripts.load_db_to:main"
