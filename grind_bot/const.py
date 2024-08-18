@@ -3,6 +3,17 @@ import sqlalchemy as sa
 
 DEFAULT_DB_NAME = 'greed.db'
 MSG_CONSTRAINT = 2000 - len("```ansi\n\n```")
+MSG_WIDTH_CONSTRAINT = 70
+
+class TradeStatus(enum.IntEnum):
+   open = 0,
+   close = 1,
+
+class CrudStatus(enum.IntEnum):
+   added = 0,
+   modified = 1,
+   deleted = 2,
+   not_found = 3,
 
 class GameMode(enum.IntEnum):
    normal = 0,
@@ -12,6 +23,8 @@ class FieldType(enum.IntEnum):
    number = 0,
    float  = 1,
    string = 2,
+   enum = 4,
+   bonus = 5,
 
 class UserRole(enum.IntEnum):
    banned = 0,
@@ -19,23 +32,24 @@ class UserRole(enum.IntEnum):
    admin = 2,
    super_admin = 3,
 
-   @classmethod
-   def has_value(cls, value):
-      return value in cls._value2member_map_ 
+class ItemTier(enum.IntEnum):
+   normal = 0,
+   exceptional = 1,
+   elite = 2,
 
-   @classmethod
-   def next(cls, ct):
-      v = ct.value + 1
-      if not cls.has_value(v):
-         return ct      
-      return cls(v)
+class ItemRarity(enum.IntEnum):
+   normal = 0,
+   magic = 1,
+   rare = 2,
+   set = 3,
+   unique = 4,
+   legendary = 5,
 
-   @classmethod
-   def prev(cls, ct):
-      v = ct.value - 1
-      if not cls.has_value(v):
-         return ct
-      return cls(v)
+class ItemArmorType(enum.IntEnum):
+   cloth = 0,
+   leather = 1,
+   mail = 2,
+   plate = 3,
 
 DEFAULT_USER_CONFIG = {
    'game_mode'     : GameMode.normal,

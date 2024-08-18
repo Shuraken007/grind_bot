@@ -43,4 +43,37 @@ help = {
    check admin names and privilege lvl
 """,
 'game_mode_descr': commands.parameter(description=list(game_mode_values.keys())),
+'known_field_add': """
+   add new column to item table
+   !known_field_add name type
+   known types:
+      - number
+      - float
+      - string
+   !kfa fire_resistance number
+""",
+'known_field_delete': """
+   delete column from item table
+   !kfd fire_resistance
+""",
+'known_field_report': """
+   report all known columns
+   !kfr
+""",
+'item_add': """
+""",
+'item_edit': """
+""",
+'item_delete': """
+""",
+'item_delete': """
+""",
+'trade_add': """
+""",
+'trade_edit': """
+""",
+'trade_delete': """
+""",
+'trade_delete': """
+""",
 }

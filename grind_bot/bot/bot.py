@@ -44,12 +44,12 @@ class MyBot(commands.Bot):
       table_names = model.get_table_names()
       models = model.generate_models(table_names)
       self.engine = EngineLoader(models, self.config.db_connection_str)
-      self.db_processor = DbProcessor(self.engine)
+      self.db_processor = DbProcessor(self.config.admin_id, self.engine)
 
    def init_db_reload(self):
       table_names = model_reload.get_table_names()
       models = model_reload.generate_models(table_names, self.db_processor)
-      self.engine_re = EngineLoader(models, self.config.db_connection_str)
+      self.engine_re = EngineLoader(models, self.config.db_connection_str, is_debug=False)
       self.db_processor_re = DbProcessorReload(self.engine_re)
 
    def add_not_registered_self_commands(self):
@@ -133,17 +133,17 @@ class MyBot(commands.Bot):
       for extension in self.initial_extensions:
          await self.load_extension(extension)
 
-   async def on_message(self, message):
-      if message.author == self.user:
-         return
+   # async def on_message(self, message):
+   #    if message.author == self.user:
+   #       return
          
-      mock_ctx = get_mock_class_with_attr({"channel": message.channel, 'message': message, 'bot': self})
-      await preprocess(mock_ctx)
+   #    mock_ctx = get_mock_class_with_attr({"channel": message.channel, 'message': message, 'bot': self})
+   #    await preprocess(mock_ctx)
       
-      parser.parse_msg(mock_ctx, self)      
-      await postprocess(mock_ctx)
+   #    parser.parse_msg(mock_ctx, self)      
+   #    await postprocess(mock_ctx)
 
-      await self.process_commands(message)
+   #    await self.process_commands(message)
 
    async def get_user_name_by_id(self, user_id):
       user_id = int(user_id)

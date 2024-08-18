@@ -58,7 +58,9 @@ class SuperAdminCog(commands.Cog, name='SuperAdmin', description = "SuperAdmin c
     @strict_users(ur.super_admin)
     @commands.command(brief = "test")
     async def test(self, ctx):
-        print('hello there')
+        db = ctx.bot.db_processor_re
+        m = db.engine.m.Item
+        db.get_column_names(m)
 
 async def setup(bot):
     await bot.add_cog(SuperAdminCog(bot))

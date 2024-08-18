@@ -12,3 +12,32 @@ Mastery > 1
 
 Вариант первый - завести много колонок - Mastery1 .. Mastery10
 и при поиске на них все натравливать
+
+
+item_example
+
+name: Nylith's Reserve
+type: Amulet
+tier: Elite
+slot: Neck
+Requires Level 57
+rarity: set
++1 Gladewalker Talents
++3 Mastery: Armageddon Talent
++24 All Stats
++15% Resist Blood
++15% Resist Poison
++24% Resist Arcarne
++15% Resist Lightning
++28% Resist Fire
++29% Resist Ice
++5% Absorb Fire
++51 Ice Spell Power
++10% Arcane Damage
++12% Resist Fear
++20% Resist Silence
+-8% Enemy Resist Ice
++13% Damage: Molten Boulder
+set_name: Grove Defender
+
+INSERT INTO item (name, type, tier, rarity, armor_type, set_name, user_id, time) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, 217341553809686528, '2024-08-16 19:21:18.021000') RETURNING id

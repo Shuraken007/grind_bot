@@ -21,6 +21,7 @@ regex = "^2024.7.24"
 
 objgraph = "^3.6.1"
 pillow = "^10.4.0"
+sqlalchemy-migrate = "^0.13.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

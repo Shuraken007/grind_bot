@@ -6,6 +6,7 @@ import io
 from ..report import Report
 from ..reaction import process_reactions
 from ..utils import build_sending_msg_arr_consider_constraint
+from ..const import MSG_WIDTH_CONSTRAINT
 
 class MyCommandError(commands.CommandError):
    pass
@@ -28,6 +29,22 @@ def pil_image_to_dfile(img, file_name, spoiler = False):
    image_binary.seek(0)
    return discord.File(fp=image_binary, filename=file_name, spoiler = spoiler)
 
+def is_wrapped(arr):
+   is_wrapped = False
+   for line in arr:
+      if len(line) > MSG_WIDTH_CONSTRAINT:
+         is_wrapped = True
+         break
+   return is_wrapped
+
+async def send_arr_as_txt_file(ctx, arr):
+   with open("result.txt", "w") as txt_file:
+      for line in arr:
+         txt_file.write(line + "\n")
+
+   with open("result.txt", "rb") as file:
+      await ctx.message.channel.send(file=discord.File(file, "result.txt"), delete_after = 60*60)
+
 async def response_by_report(ctx):
    if not hasattr(ctx, 'report'):
       return
@@ -45,12 +62,17 @@ async def response_by_report(ctx):
          await ctx.message.add_reaction(emoji)
 
    msg_arr = r.build_msg_arr()
-   send_msg_arr = build_sending_msg_arr_consider_constraint(msg_arr)
+   send_as_table = is_wrapped(msg_arr)
 
-   for msg in send_msg_arr:
-      wrapped_msg = "```ansi\n" + msg + "\n```"
-      await ctx.message.channel.send(wrapped_msg, delete_after = 60*60)
-   
+   if not send_as_table:
+      send_msg_arr = build_sending_msg_arr_consider_constraint(msg_arr)
+
+      for msg in send_msg_arr:
+         wrapped_msg = "```ansi\n" + msg + "\n```"
+         await ctx.message.channel.send(wrapped_msg, delete_after = 60*60)
+   else:
+      await send_arr_as_txt_file(ctx, msg_arr)
+
    file_group = r.file.get() or []
    for [files] in file_group:
       await ctx.message.channel.send(files=files, delete_after = 60*60)
